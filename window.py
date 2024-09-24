@@ -1,4 +1,5 @@
 from tkinter import Tk, BOTH, Canvas
+from line import Line
 
 # Line Intentionally Left Blank
 

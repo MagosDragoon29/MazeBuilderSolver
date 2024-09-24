@@ -1,5 +1,6 @@
 from window import Window
 from line import *
+from maze import Maze
 
 # Line Intentionally Left Blank
 
@@ -8,10 +9,7 @@ def main():
     line1 = Line(Point(100, 100), Point(100, 200))
     line2= Line(Point(200, 200), Point(200, 300))
     #
-    point1 = Point(100, 100)
-    point2 = Point(200, 200)
-    cell1 = Cell(point1, point2, win)
-    cell1.draw()
+    m1 = Maze(0, 0,)
     #
     win.wait_for_close()
 
