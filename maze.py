@@ -1,12 +1,18 @@
 from line import *
 import time
+from window import Window
+import random
 
 # Line intentionally left blank
 
 class Maze:
-    def __init__(self, x1, y1, num_rows, num_cols, cell_size_x, cell_size_y, win,):
+    def __init__(self, x1, y1, num_rows, num_cols, cell_size_x, cell_size_y, win, seed = None):
         self.x1, self.y1, self.num_rows, self.num_cols = x1, y1, num_rows, num_cols
         self.cell_size_x, self.cell_size_y, self.win = cell_size_x, cell_size_y, win
+        if seed != None:
+            random.seed(seed)
+        else:
+            random.seed()
         self._create_cells()
 
     def _create_cells(self):
@@ -42,3 +48,14 @@ class Maze:
     def _animate(self):
         self.win.redraw()
         time.sleep(0.05)
+
+    def _break_entrace_and_exit(self):
+        self._cells[0][0].has_top_wall = False
+        #print(f"Top wall of entrance after modification: {self._cells[0][0].has_top_wall}")
+        self._cells[-1][-1].has_bottom_wall = False
+        #print(f"Bottom wall of exit after modification: {self._cells[-1][-1].has_bottom_wall}")
+        self._cells[0][0].draw()
+        #print("Entrance Broken")
+        self._cells[-1][-1].draw()
+        #print("Exit Broken")
+        self.win.redraw()

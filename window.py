@@ -10,7 +10,7 @@ class Window:
         self.root.title ("Maze Solver")
         
         # Canvas Widget
-        self.canvas = Canvas(self.root, width=width, height=height, bg="gray")
+        self.canvas = Canvas(self.root, width=width, height=height, bg="white")
         self.canvas.pack(fill=BOTH, expand=True)
         
         self.running = False

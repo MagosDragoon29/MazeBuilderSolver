@@ -32,16 +32,29 @@ class Cell:
         self.has_top_wall = True
         self.has_bottom_wall = True
         self._win = window
+        self.visited = False
 
     def draw(self):
+        #print(f"has top wall: {self.has_top_wall}, has bottom wall: {self.has_bottom_wall}, has left wall: {self.has_left_wall}, has right wall: {self.has_right_wall} ")
         if self.has_left_wall:
             Line(Point(self._x1, self._y1), Point(self._x1, self._y2)).draw(self._win.canvas, 'black')
+        else:
+            Line(Point(self._x1, self._y1), Point(self._x1, self._y2)).draw(self._win.canvas, 'white')
         if self.has_right_wall:
             Line(Point(self._x2, self._y1), Point(self._x2, self._y2)).draw(self._win.canvas, 'black')
+        else:
+            Line(Point(self._x2, self._y1), Point(self._x2, self._y2)).draw(self._win.canvas, 'white')
         if self.has_top_wall:
             Line(Point(self._x1, self._y1), Point(self._x2, self._y1)).draw(self._win.canvas, 'black')
+        else:
+            Line(Point(self._x1, self._y1), Point(self._x2, self._y1)).draw(self._win.canvas, 'white')
+            #print("top wall broken")
         if self.has_bottom_wall:
             Line(Point(self._x1, self._y2), Point(self._x2, self._y2)).draw(self._win.canvas, 'black')
+        else:
+            Line(Point(self._x1, self._y2), Point(self._x2, self._y2)).draw(self._win.canvas, 'white')
+            #print("bottom wall broken")
+        self._win.redraw()
     
     def draw_move(self, to_cell, undo=False):
         if undo:
