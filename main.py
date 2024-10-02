@@ -12,7 +12,7 @@ def main():
     #
     num_cols = 50
     num_rows = 50
-    m1 = Maze(0, 0, num_rows, num_cols, 10, 10, win, seed = 29)
+    m1 = Maze(0, 0, num_rows, num_cols, 10, 10, win)
     #
     m1._break_entrace_and_exit()
     m1._break_walls_r(0,0)
