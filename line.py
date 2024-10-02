@@ -58,7 +58,7 @@ class Cell:
     
     def draw_move(self, to_cell, undo=False):
         if undo:
-            color = 'gray'
+            color = 'grey'
         else:
             color = 'red'
         start_point = Point((self._x1 + self._x2) /2, (self._y1 + self._y2) /2)

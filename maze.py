@@ -124,4 +124,79 @@ class Maze:
                 self._break_walls_r(i, j+1)
         self._reset_cells_visited()
 
-    
+    def solve(self):
+        self._reset_cells_visited()
+        solved = self._solve_r(0,0)
+        return solved 
+
+    def _solve_r(self, i, j):
+        self._animate()
+        current_cell = self._cells[i][j]
+        current_cell.visited = True
+
+        if i == len(self._cells)-1 and j == len(self._cells[i]) -1:
+            print("Exit found!")
+
+        if i == len(self._cells)-1 and j == len(self._cells[i]) -1:
+            return True
+        if i == 0:
+            left = None
+        else:
+            left = self._cells[i-1][j]
+        if i == len(self._cells) - 1:
+            right = None
+        else:
+            right = self._cells[i+1][j]
+        if j == 0:
+            top = None
+        else: 
+            top = self._cells[i][j-1]
+        if j == len(self._cells[i]) - 1:
+            bottom = None
+        else:
+            bottom = self._cells[i][j+1]
+
+        #print(f"Current cell: {i}, {j}")
+        #print(f"Top: {top is not None}, Bottom: {bottom is not None}, Left: {left is not None}, Right: {right is not None}")
+        #print(f"Current cell walls: top={current_cell.has_top_wall}, bottom={current_cell.has_bottom_wall}, left={current_cell.has_left_wall}, right={current_cell.has_right_wall}")
+
+        #if top:
+            #print(f"Top cell visited: {top.visited}, Wall broken: {not current_cell.has_top_wall}")
+        if top and not top.visited and not current_cell.has_top_wall:
+            #print(f"attempting move from cell: {i}, {j} to cell: {i}, {j-1}")
+            current_cell.draw_move(top)
+            if self._solve_r(i, j-1):
+                return True
+            else:
+                current_cell.draw_move(top, undo=True)
+
+        #if bottom:
+            #print(f"Bottom cell visisted: {bottom.visited}, wall broken: {not current_cell.has_bottom_wall}")        
+        if bottom and not bottom.visited and not current_cell.has_bottom_wall:
+            #print(f"attempting move from cell: {i}, {j} to cell: {i}, {j+1}")
+            current_cell.draw_move(bottom)
+            if self._solve_r(i, j+1):
+                return True
+            else:
+                current_cell.draw_move(bottom, undo=True)
+
+        #if left:
+            #print(f"Left cell visisted: {left.visited}, wall broken: {not current_cell.has_left_wall}")      
+        if left and not left.visited and not current_cell.has_left_wall:
+            #print(f"attempting move from cell: {i}, {j} to cell: {i-1}, {j}")
+            current_cell.draw_move(left)
+            if self._solve_r(i-1, j):
+                return True
+            else:
+                current_cell.draw_move(left, undo=True)
+
+        #if right:
+            #print(f"Right cell visisted: {right.visited}, wall broken: {not current_cell.has_right_wall}")  
+        if right and not right.visited and not current_cell.has_right_wall:
+            #print(f"attempting move from cell: {i}, {j} to cell: {i+1}, {j}")
+            current_cell.draw_move(right)
+            if self._solve_r(i+1, j):
+                return True
+            else:
+                current_cell.draw_move(right, undo=True)
+        return False
